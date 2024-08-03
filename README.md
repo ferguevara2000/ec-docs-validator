@@ -1,6 +1,6 @@
 # ECUADOR VALIDATOR DOCUMENTS
 
-Validator for Ecuadorian Identification Documents
+Validator for Ecuadorian Identification Documents  
 Validator para las identificaciones de los principales documentos usados en Ecuador: Cédula, ruc, teléfono fijo,
 teléfono celular, placas de vehiculos y motos, codigo postal y más datos.
 
@@ -19,13 +19,13 @@ npm install ec-docs-validator
 Javascript:
 
 ```sh
-const validator = require('ec-docs-validator');
+const validator = require('ec-docs-validator')
 ```
 
 Typescript:
 
 ```sh
-import validator = from 'ec-docs-validator';
+import validator = from 'ec-docs-validator'
 ```
 
 ### Usage
@@ -71,6 +71,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Author - Contact
 
-Fernando Guevara Bayas [Website](https://portfolio-ggt.pages.dev)
-
-[Back to Top](https://github.com/ferguevara2000/ec-docs-validator#readme-top)
+Fernando Guevara Bayas - [Website](https://portfolio-ggt.pages.dev)
