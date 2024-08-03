@@ -1,4 +1,31 @@
 {
   "name": "ec-docs-validator",
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "description": "Validador de los datos de documentos mas utilizados en Ecuador.",
+  "main": "src/index.ts",
+  "browser": "src/index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": "https://github.com/ferguevara2000/ec-docs-validator",
+  "keywords": [
+    "ecuador",
+    "cedula",
+    "validador",
+    "validator",
+    "cedula",
+    "ruc",
+    "codigo postal",
+    "placas",
+    "telefono",
+    "celular",
+    "dni"
+  ],
+  "author": "Fernando Guevara",
+  "license": "MIT",
+  "homepage": "https://github.com/ferguevara2000/ec-docs-validator#readme",
+  "devDependencies": {
+    "mocha": "^10.7.0",
+    "typescript": "^5.5.4"
+  }
 }

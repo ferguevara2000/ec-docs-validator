@@ -1,4 +1,4 @@
-exports.ci = function (ci) {
+exports.ci = (ci) => {
   if (typeof ci === "number") ci = ci.toString();
   if (ci.length !== 10) return false;
 
@@ -10,7 +10,7 @@ exports.ci = function (ci) {
   return parseInt(ci.charAt(9), 10) === validateModule10(ci);
 };
 
-exports.ruc = function (ruc) {
+exports.ruc = (ruc) => {
   if (typeof ruc === "number") ruc = ruc.toString();
   if (ruc.length !== 13) return false;
 
@@ -30,7 +30,7 @@ exports.ruc = function (ruc) {
   }
 };
 
-exports.cellphone = function (cellphone) {
+exports.cellphone = (cellphone) => {
   if (typeof cellphone === "number") cellphone = cellphone.toString();
 
   if (cellphone[0] === "+") cellphone = cellphone.slice(1);
@@ -50,7 +50,7 @@ exports.cellphone = function (cellphone) {
   return false;
 };
 
-exports.telephone = function (telephone) {
+exports.telephone = (telephone) => {
   if (typeof telephone === "number") telephone = telephone.toString();
 
   if (!isNumber(telephone)) return false;
@@ -78,7 +78,7 @@ exports.telephone = function (telephone) {
   return false;
 };
 
-exports.plates = function (plate) {
+exports.plates = (plate) => {
   if (plate.length === 7) return validateCarPlate(plate);
 
   if (plate.length === 6) return validateMotorcyclePlate(plate);
@@ -86,50 +86,52 @@ exports.plates = function (plate) {
   return false;
 };
 
-exports.zipCode = function (zipCode) {
+exports.zipCode = (zipCode) => {
   if (typeof zipCode === "number") zipCode = zipCode.toString();
 
   if (!isNumber(zipCode)) return false;
 
   if (zipCode.length !== 6) return false;
 
-  var startNumbers = parseInt(zipCode.slice(0, 2), 10);
+  const startNumbers = parseInt(zipCode.slice(0, 2), 10);
   if (startNumbers >= 1 && startNumbers <= 24) return true;
 
   return false;
 };
 
-function validateModule10(ci) {
-  var coefficients = [2, 1, 2, 1, 2, 1, 2, 1, 2];
-  var nineDigitsArray = ci.substring(0, 9).split("").map(Number);
+const validateModule10 = (ci) => {
+  const coefficients = [2, 1, 2, 1, 2, 1, 2, 1, 2];
+  const nineDigitsArray = ci.substring(0, 9).split("").map(Number);
 
-  var sum = coefficients.reduce(function (acc, coef, index) {
-    var product = coef * nineDigitsArray[index];
+  const sum = coefficients.reduce((acc, coef, index) => {
+    let product = coef * nineDigitsArray[index];
     if (product >= 10) product -= 9;
     return acc + product;
   }, 0);
 
   return sum % 10 === 0 ? 0 : 10 - (sum % 10);
-}
+};
 
-function validateModule11(ruc, coefficients) {
-  var digitsArray = ruc.substring(0, coefficients.length).split("").map(Number);
-  var sum = coefficients.reduce(function (acc, coef, index) {
-    return acc + coef * digitsArray[index];
-  }, 0);
-  var residue = sum % 11;
+const validateModule11 = (ruc, coefficients) => {
+  const digitsArray = ruc
+    .substring(0, coefficients.length)
+    .split("")
+    .map(Number);
+  const sum = coefficients.reduce(
+    (acc, coef, index) => acc + coef * digitsArray[index],
+    0
+  );
+  const residue = sum % 11;
   return residue === 0 ? 0 : 11 - residue;
-}
+};
 
-function validateModule11Digit9(ruc) {
-  return validateModule11(ruc, [4, 3, 2, 7, 6, 5, 4, 3, 2]);
-}
+const validateModule11Digit9 = (ruc) =>
+  validateModule11(ruc, [4, 3, 2, 7, 6, 5, 4, 3, 2]);
 
-function validateModule11Digit6(ruc) {
-  return validateModule11(ruc, [3, 2, 7, 6, 5, 4, 3, 2]);
-}
+const validateModule11Digit6 = (ruc) =>
+  validateModule11(ruc, [3, 2, 7, 6, 5, 4, 3, 2]);
 
-var PLATE_CODES = [
+const PLATE_CODES = [
   "A",
   "B",
   "C",
@@ -156,39 +158,40 @@ var PLATE_CODES = [
   "Z",
 ];
 
-function validateCarPlate(plate) {
+const validateCarPlate = (plate) => {
   plate = plate.replace("-", "");
 
   if (plate.length !== 7) return false;
 
-  var letters = plate.slice(0, 3);
-  var numbers = plate.slice(3);
+  const letters = plate.slice(0, 3);
+  const numbers = plate.slice(3);
 
-  var isLettersValid =
-    /^[A-Z]{3}$/.test(letters) && PLATE_CODES.includes(letters[0]);
-  var isNumbersValid = /^[0-9]{4}$/.test(numbers);
+  const isLettersValid =
+    /^[A-Z]{3}$/.test(letters) && PLATE_CODES.indexOf(letters[0]) !== -1;
+  const isNumbersValid = /^[0-9]{4}$/.test(numbers);
 
   return isLettersValid && isNumbersValid;
-}
+};
 
-function validateMotorcyclePlate(plate) {
+const validateMotorcyclePlate = (plate) => {
   plate = plate.replace("-", "");
 
   if (plate.length !== 6) return false;
 
-  var startLetters = plate.slice(0, 2);
-  var middleNumbers = plate.slice(2, 5);
-  var endLetter = plate.slice(5);
+  const startLetters = plate.slice(0, 2);
+  const middleNumbers = plate.slice(2, 5);
+  const endLetter = plate.slice(5);
 
-  var isStartLettersValid =
-    /^[A-Z]{2}$/.test(startLetters) && PLATE_CODES.includes(startLetters[0]);
-  var isMiddleNumbersValid = /^[0-9]{3}$/.test(middleNumbers);
-  var isEndLetterValid = /^[A-Z]$/.test(endLetter);
+  const isStartLettersValid =
+    /^[A-Z]{2}$/.test(startLetters) &&
+    PLATE_CODES.indexOf(startLetters[0]) !== -1;
+  const isMiddleNumbersValid = /^[0-9]{3}$/.test(middleNumbers);
+  const isEndLetterValid = /^[A-Z]$/.test(endLetter);
 
   return isStartLettersValid && isMiddleNumbersValid && isEndLetterValid;
-}
+};
 
-function isNumber(str) {
+const isNumber = (str) => {
   if (typeof str !== "string") return false;
   return /^\d+$/.test(str);
-}
+};
