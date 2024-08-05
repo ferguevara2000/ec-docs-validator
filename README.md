@@ -25,7 +25,7 @@ const validator = require('ec-docs-validator')
 Typescript:
 
 ```sh
-import validator = from 'ec-docs-validator'
+import validator from 'ec-docs-validator'
 ```
 
 ### Usage
